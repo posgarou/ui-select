@@ -28,6 +28,8 @@ uis.directive('uiSelect',
         var $select = ctrls[0];
         var ngModel = ctrls[1];
 
+        var clickEvent = ('ontouchstart' in window) ? 'touchstart' : 'click';
+
         $select.generatedId = uiSelectConfig.generateId();
         $select.baseTitle = attrs.title || 'Select box';
         $select.focusserTitle = $select.baseTitle + ' focus';
@@ -156,10 +158,10 @@ uis.directive('uiSelect',
         }
 
         // See Click everywhere but here event http://stackoverflow.com/questions/12931369
-        $document.on('click', onDocumentClick);
+        $document.on(clickEvent, onDocumentClick);
 
         scope.$on('$destroy', function() {
-          $document.off('click', onDocumentClick);
+          $document.off(clickEvent, onDocumentClick);
         });
 
         // Move transcluded elements to their correct position in main template
